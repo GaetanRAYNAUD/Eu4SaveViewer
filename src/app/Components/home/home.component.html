@@ -1,0 +1,62 @@
+<mat-card class="mt-5 pb-3">
+  <mat-card-header class="font-weight-bold py-3">
+    Toutes les parties en cours
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <mat-spinner *ngIf="loading" [diameter]="50" class="mx-auto my-3"></mat-spinner>
+    <mat-list>
+      <div *ngFor="let game of games">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header [collapsedHeight]="'80px'">
+            <mat-list-item>
+
+              <mat-icon mat-list-icon>folder</mat-icon>
+
+              <h4 mat-line>{{game.title}}</h4>
+
+              <p mat-line>
+                <span>Sessions : {{game.sessions.length}}</span>
+                <span class="ml-2">Nombre de joueurs : {{game.sessions.length}}</span>
+              </p>
+
+              <p mat-line *ngIf="game.start_hour && game.end_hour && game.day">
+                <span *ngIf="game.day === 'MONDAY'">Lundi : </span>
+                <span *ngIf="game.day === 'TUESDAY'">Mardi : </span>
+                <span *ngIf="game.day === 'WEDNESDAY'">Mercredi : </span>
+                <span *ngIf="game.day === 'THURSDAY'">Jeudi : </span>
+                <span *ngIf="game.day === 'FRIDAY'">Vendredi : </span>
+                <span *ngIf="game.day === 'SATURDAY'">Samedi : </span>
+                <span *ngIf="game.day === 'SUNDAY'">Dimanche : </span>
+
+                <span>{{game.start_hour}}h à {{game.end_hour}}h</span>
+              </p>
+
+            </mat-list-item>
+          </mat-expansion-panel-header>
+
+          <mat-grid-list [cols]="1" [rowHeight]="50">
+            <mat-grid-tile>
+              Date : {{game.date.toLocaleDateString('fr-Fr', dateOptions)}}
+            </mat-grid-tile>
+          </mat-grid-list>
+
+          <mat-grid-list [cols]="2" [rowHeight]="50">
+            <mat-grid-tile>
+              Développement total : {{game.dev_total}}
+            </mat-grid-tile>
+            <mat-grid-tile>
+              Pertes totales : {{game.losses_total}}
+            </mat-grid-tile>
+          </mat-grid-list>
+
+          <h1>METTRE LA LISTE DES GRANDES PUISSANCES</h1>
+
+        </mat-expansion-panel>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

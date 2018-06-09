@@ -1,0 +1,70 @@
+<mat-card class="text-center mt-5">
+  <mat-card-header>
+    Créer un compte
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content class="pt-3 pb-1">
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+      <mat-grid-tile-header>
+
+        <mat-form-field>
+
+          <input matInput placeholder="Nom d'utilisateur" [formControl]="username" required>
+          <mat-hint *ngIf="!formSubmitAttempt">Le nom d'utilisateur doit avoir entre 4 et 24 caractères et ne peut contenir des caractères spéicaux.</mat-hint>
+          <mat-hint *ngIf="formSubmitAttempt && usernameError.invalid">
+            <mat-error *ngIf="usernameError.required">Le nom d'utilisateur est obligatoire.</mat-error>
+            <mat-error *ngIf="usernameError.pattern">Le nom d'utilisateur ne doit pas contenir de caractères spéciaux.</mat-error>
+            <mat-error *ngIf="usernameError.length">Le nom d'utilisateur doit avoir entre 4 et 24 caractères.</mat-error>
+            <mat-error *ngIf="usernameError.alreadyUsed">Le nom d'utilisateur est déjà utilisé par un autre utilisateur.</mat-error>
+          </mat-hint>
+
+        </mat-form-field>
+
+      </mat-grid-tile-header>
+
+      <mat-grid-tile-header>
+
+        <mat-form-field class="mt-4">
+
+          <input matInput type="email" placeholder="Adresse email" [formControl]="email" required>
+          <mat-hint *ngIf="formSubmitAttempt && emailError.invalid">
+            <mat-error *ngIf="emailError.required">L'adresse email est obligatoire.</mat-error>
+            <mat-error *ngIf="emailError.email">L'adresse email est invalide.</mat-error>
+            <mat-error *ngIf="emailError.alreadyUsed">L'adresse email est déjà utilisée par un autre utilisateur.</mat-error>
+          </mat-hint>
+
+        </mat-form-field>
+
+      </mat-grid-tile-header>
+
+      <mat-grid-tile-header>
+
+        <mat-form-field class="mt-4">
+
+          <input matInput type="password" placeholder="Mot de passe" [formControl]="password" required>
+          <mat-hint *ngIf="!formSubmitAttempt">Le mot de passe doit avoir entre 6 et 24 caractères et ne peut contenir des caractères spéicaux.</mat-hint>
+          <mat-hint *ngIf="formSubmitAttempt && passwordError.invalid">
+            <mat-error *ngIf="passwordError.required">Le mot de passe est obligatoire.</mat-error>
+            <mat-error *ngIf="passwordError.pattern">Le mot de passse ne doit pas contenir de caractères spéciaux.</mat-error>
+            <mat-error *ngIf="passwordError.length">Le mot de passse doit avoir entre 4 et 24 caractères.</mat-error>
+          </mat-hint>
+
+        </mat-form-field>
+
+      </mat-grid-tile-header>
+
+      <mat-card-actions class="mt-4">
+
+        <button mat-raised-button color="primary" type="submit" class="pt-2 pb-2 font-weight-bold">Connexion</button>
+
+      </mat-card-actions>
+
+    </form>
+
+  </mat-card-content>
+
+</mat-card>

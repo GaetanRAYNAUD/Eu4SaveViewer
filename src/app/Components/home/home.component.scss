@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+@import '../../../theme.scss';
+
+.mat-card {
+  min-width: 300px;
+  width: 80%;
+  margin-left: 10%;
+  padding: 0;
+  color: white;
+  border-radius: 10px;
+}
+
+.mat-card-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: mat-color($app-primary);
+  width: 100%;
+  height: 100%;
+}
+
+mat-expansion-panel {
+  box-shadow: none !important;
+
+  .mat-expansion-panel-content {
+    cursor: pointer;
+  }
+}
+
+.panel-expanded-body {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+mat-grid-tile {
+  figure {
+    display: block !important;
+  }
+}

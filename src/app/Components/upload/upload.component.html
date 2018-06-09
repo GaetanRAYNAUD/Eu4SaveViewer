@@ -1,0 +1,7 @@
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" accept-charset="ISO-8859-1">
+  <label for="name"></label>
+  <input id="name" name="name" class="form-control" type="text" formControlName="name" />
+  <label for="file"></label>
+  <input id="file" name="file" class="file-input" type="file" formControlName="file" (change)="onFileChange($event)" #fileInput/>
+  <button type="submit">Envoyer</button>
+</form>

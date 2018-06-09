@@ -1,0 +1,56 @@
+<mat-card class="text-center mt-5">
+  <mat-card-header>
+      Connexion
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content class="pt-3 pb-1">
+
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+
+      <mat-grid-tile-header>
+
+        <mat-form-field>
+
+          <input matInput type="email" placeholder="Adresse email" [formControl]="email" required class="pt-1 pb-1">
+          <mat-hint *ngIf="formSubmitAttempt && emailError.invalid">
+            <mat-error *ngIf="emailError.required">L'adresse email est obligatoire.</mat-error>
+            <mat-error *ngIf="emailError.email">L'adresse email est invalide.</mat-error>
+          </mat-hint>
+
+        </mat-form-field>
+
+      </mat-grid-tile-header>
+
+      <mat-grid-tile-header>
+
+        <mat-form-field class="mt-2">
+
+          <input matInput placeholder="Mot de passe" type="password" [formControl]="password" required class="pt-1 pb-1">
+          <mat-hint *ngIf="formSubmitAttempt && passwordError.invalid">
+            <mat-error *ngIf="passwordError.required">Le mot de passe est obligatoire.</mat-error>
+            <mat-error *ngIf="passwordError.wrong">Le mot de passe incorrect. Réessayez ou cliquez sur "Mot de passe oublié" pour le réinitialiser.</mat-error>
+          </mat-hint>
+
+        </mat-form-field>
+
+      </mat-grid-tile-header>
+
+      <mat-card-actions class="mt-2">
+
+        <button mat-raised-button color="primary" type="submit" class="pt-2 pb-2 font-weight-bold">Connexion</button>
+
+      </mat-card-actions>
+
+      <mat-card-actions class="mt-2">
+
+        <button mat-button color="primary" class="pt-2 pb-2 font-weight-bold" (click)="forgotPassword()">Mot de passe oublié ?</button>
+
+      </mat-card-actions>
+
+    </form>
+
+  </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,127 @@
+<div class="countryPlate" id="country">
+  <div class="heading">
+    <div>
+      <img alt="Rank" id="rank" [src]='country.govRank'>
+      <span id="pseudo">{{country.name}}</span>
+    </div>
+  </div>
+
+  <img alt="Flag" [src]='flagPath' class="flag" id="flag">
+
+  <hr>
+
+  <b>Culture</b>
+  <div class="info">
+    <span class="infoText textImage" id="culture">{{country.culture}}</span>
+    <img alt="Culture" src="assets/images/info/Culture.png">
+  </div>
+
+  <hr>
+
+  <b>Capitale</b>
+  <div class="info">
+    <span class="infoText textImage" id="capital">{{country.capital}}</span>
+    <img alt="Capital" src="assets/images/info/Capital.png">
+  </div>
+
+  <hr>
+
+  <b>Gouvernement</b>
+  <div class="info">
+    <span class="infoText textImage" id="government">{{country.govType}}</span>
+    <img alt="Government" src="assets/images/info/Government_monarchy.png">
+  </div>
+
+  <hr>
+
+  <b>Religion</b>
+  <div class="info">
+    <span class="infoText textImage" id="religion">{{country.religion}}</span>
+    <img alt="Religion" id="religionImg" src="assets/images/religions/Orthodoxe.png">
+  </div>
+
+  <hr>
+
+  <b>Développement</b>
+  <div class="info">
+    <span class="infoText textImage" id="dev">{{country.dev}}</span>
+    <img alt="Development" src="assets/images/info/Dev.png">
+  </div>
+
+  <hr>
+
+  <b>Revenu</b>
+  <div class="info">
+    <span class="infoText textImage" id="income">{{country.income}}</span>
+    <img alt="Income" src="assets/images/info/Gold.png">
+  </div>
+
+  <hr>
+
+  <b>Réserves militaire</b>
+  <div class="info">
+    <span class="infoText textImage" id="manpower">{{country.maxManpower}}</span>
+    <img alt="Manpower" src="assets/images/info/Manpower.png">
+  </div>
+
+  <hr>
+
+  <b>Limite terrestre</b>
+  <div class="info">
+    <span class="infoText textImage" id="forceLimit">{{country.forceLimit}}</span>
+    <img alt="ForceLimit" src="assets/images/info/Land_forcelimit.png">
+  </div>
+
+  <hr>
+
+  <b>Nombre de provinces</b>
+  <div class="info">
+    <span class="infoText textImage" id="nbProv">{{country.nbProvince}}</span>
+    <img alt="Orthodox.png" src="assets/images/info/Province.png">
+  </div>
+
+  <hr>
+
+  <b>Pertes</b>
+  <div class="info">
+    <span class="infoText textImage" id="losses">{{country.casualties}}</span>
+    <img alt="Losses" src="assets/images/info/Losses.png">
+  </div>
+
+  <hr>
+
+  <b>Emprun</b>
+  <div class="info">
+    <span class="infoText textImage" id="loan">{{country.debt}}</span>
+    <img alt="Loan" src="assets/images/info/Loan.png">
+  </div>
+
+  <hr>
+
+  <b>Professionnalisme</b>
+  <div class="info">
+    <span class="infoText textImage" id="professionalism">{{country.professionalism}}</span>
+    <img alt="Professionalism" src="assets/images/info/Professionalism.png">
+  </div>
+
+  <hr>
+
+  <b>Innovation</b>
+  <div class="info">
+    <span class="infoText textImage" id="innovativeness">{{country.innovation}}</span>
+    <img alt="Innovativeness" src="assets/images/info/Innovativeness.png">
+  </div>
+
+  <hr>
+
+  <b>Institutions</b>
+  <div class="info">
+    <img [hidden]='!country.institutions[0]' alt="Feudalism" id="feudalism" class="institutionNotEmbraced" src="assets/images/info/Feudalism.png">
+    <img [hidden]='!country.institutions[1]' alt="Renaissance" id="renaissance" class="institutionNotEmbraced" src="assets/images/info/Renaissance.png">
+    <img [hidden]='!country.institutions[2]' alt="Colonialism" id="colonialism" class="institutionNotEmbraced" src="assets/images/info/Colonialism.png">
+    <img [hidden]='!country.institutions[3]' alt="PrintingPress" id="printingPress" class="institutionNotEmbraced" src="assets/images/info/Printing_Press.png">
+    <img [hidden]='!country.institutions[4]' alt="GlobalTrade" id="globalTrade" class="institutionNotEmbraced" src="assets/images/info/Global_Trade.png">
+    <img [hidden]='!country.institutions[5]' alt="Manufactures" id="Manufactures" class="institutionNotEmbraced" src="assets/images/info/Manufactories.png">
+    <img [hidden]='!country.institutions[6]' alt="Enlightenment" id="enlightenment" class="institutionNotEmbraced" src="assets/images/info/Enlightenment.png">
+  </div>
+</div>
