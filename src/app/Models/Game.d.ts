@@ -1,4 +1,4 @@
-import { Session } from "./Session";
+import { GreatPower, Session } from "./Session";
 
 export interface Game {
   day: string;
@@ -10,4 +10,5 @@ export interface Game {
   dev_total: number;
   losses_total: number;
   date: Date;
+  great_powers: GreatPower[];
 }

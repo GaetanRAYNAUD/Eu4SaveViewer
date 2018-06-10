@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit {
     game.date = new Date(lastSession.end_date);
     game.dev_total = lastSession.dev_total;
     game.losses_total = lastSession.losses_total;
+    game.great_powers = lastSession.great_powers;
 
     return game;
   }
