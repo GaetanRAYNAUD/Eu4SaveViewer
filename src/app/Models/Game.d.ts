@@ -11,4 +11,5 @@ export interface Game {
   losses_total: number;
   date: Date;
   great_powers: GreatPower[];
+  map_url: string;
 }

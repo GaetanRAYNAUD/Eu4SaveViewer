@@ -13,7 +13,12 @@
           <mat-expansion-panel-header [collapsedHeight]="'80px'">
             <mat-list-item>
 
-              <mat-icon mat-list-icon>folder</mat-icon>
+              <mat-icon mat-list-icon>
+
+                <img src="favicon.ico">
+
+              </mat-icon>
+
 
               <h4 mat-line>{{game.title}}</h4>
 
@@ -37,29 +42,79 @@
             </mat-list-item>
           </mat-expansion-panel-header>
 
+          <mat-divider></mat-divider>
+
           <mat-grid-list [cols]="1" [rowHeight]="50">
             <mat-grid-tile>
-              Date : {{game.date.toLocaleDateString('fr-Fr', dateOptions)}}
+              <h4 class="mt-2">{{game.date.toLocaleDateString('fr-Fr', dateOptions)}}</h4>
             </mat-grid-tile>
           </mat-grid-list>
 
           <mat-grid-list [cols]="2" [rowHeight]="50">
             <mat-grid-tile>
-              Développement total : {{game.dev_total}}
+              <span class="font-weight-bold">Développement total : </span> {{game.dev_total}}
             </mat-grid-tile>
             <mat-grid-tile>
-              Pertes totales : {{game.losses_total}}
+              <span class="font-weight-bold">Pertes totales : </span> {{game.losses_total}}
             </mat-grid-tile>
           </mat-grid-list>
 
-          <mat-list>
-            <h3 mat-subheader>Grande puissances</h3>
-            <mat-list-item *ngFor="let great_power of game.great_powers">
-              <mat-icon mat-list-icon class="mr-3"><img src="assets/images/flags/{{great_power.tag}}.png" width="60" height="40"></mat-icon>
-              <h4 mat-line>{{great_power.tag}}</h4>
-              <p mat-line> {{great_power.points}} </p>
-            </mat-list-item>
+          <h4 class="mt-2 text-center">Grandes puissances</h4>
+
+          <mat-list class="float-left">
+
+            <span *ngFor="let great_power of game.great_powers; let index = index; let even = even">
+              <mat-list-item *ngIf="even">
+
+                <span *ngIf="index == 0" class="ml-3 font-italic">1er</span>
+                <span *ngIf="index != 0" class="ml-3 font-italic">{{index + 1}}ième</span>
+
+                <mat-icon mat-list-icon class="mr-3">
+
+                  <img src="assets/images/flags/{{great_power.tag}}.png" width="60" height="40" class="flag-icon">
+
+                </mat-icon>
+
+                <h4 mat-line>{{great_power.tag}}</h4>
+                <p mat-line class="font-weight-bold"> {{great_power.points}} </p>
+
+                <i *ngIf="great_power.change > 0" class="fas fa-arrow-up mx-3" style="color: green"></i>
+                <i *ngIf="great_power.change == 0" class="fas fa-equals mx-3" style="color: #3c5a6e"></i>
+                <i *ngIf="great_power.change < 0" class="fas fa-arrow-down mx-3" style="color: red"></i>
+
+              </mat-list-item>
+            </span>
+
           </mat-list>
+
+          <mat-list class="float-right">
+
+            <span *ngFor="let great_power of game.great_powers; let index = index; let odd = odd">
+              <mat-list-item *ngIf="odd" class="text-right">
+
+                <i mat-list-icon *ngIf="great_power.change > 0" class="fas fa-arrow-up" style="color: green; font-size: 16px"></i>
+                <i mat-list-icon *ngIf="great_power.change == 0" class="fas fa-equals" style="color: #3c5a6e; font-size: 16px"></i>
+                <i mat-list-icon *ngIf="great_power.change < 0" class="fas fa-arrow-down" style="color: red; font-size: 16px"></i>
+
+                <span *ngIf="index == 0" mat-list-icon class="rank mr-3 ml-2 font-italic">1er</span>
+                <span *ngIf="index != 0" mat-list-icon class="rank mr-3 ml-2 font-italic">{{index + 1}}ième</span>
+
+                <h4 mat-line>{{great_power.tag}}</h4>
+                <p mat-line class="font-weight-bold">{{great_power.points}}</p>
+
+                <mat-icon class="left-icon mr-4">
+
+                  <img src="assets/images/flags/{{great_power.tag}}.png" width="60" height="40" class="flag-icon">
+
+                </mat-icon>
+
+              </mat-list-item>
+            </span>
+
+          </mat-list>
+
+
+          <img [src]="game.map_url" [style.width.%]="100">
 
         </mat-expansion-panel>
         <mat-divider></mat-divider>

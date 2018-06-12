@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
     game.dev_total = lastSession.dev_total;
     game.losses_total = lastSession.losses_total;
     game.great_powers = lastSession.great_powers;
+    game.map_url = lastSession.map_url;
 
     return game;
   }
