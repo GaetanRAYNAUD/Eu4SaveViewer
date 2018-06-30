@@ -1,9 +1,6 @@
 // Angular dependencies
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-// External dependencies
-
+import { RouterModule, Routes } from '@angular/router';
 // Internal dependencies
 import { SignupComponent } from "./Components/auth/signup/signup.component";
 import { SigninComponent } from "./Components/auth/signin/signin.component";
@@ -15,6 +12,9 @@ import { SaveFormComponent } from "./Components/save/save-form/save-form.compone
 import { CompareComponent } from "./Components/compare/compare.component";
 import { HomeComponent } from "./Components/home/home.component";
 import { ForgotPasswordComponent } from "./Components/auth/forgot-password/forgot-password.component";
+import { CreateGameComponent } from "./Components/game/create-game/create-game.component";
+
+// External dependencies
 
 const routes: Routes = [
   { path: 'auth/signup', component: SignupComponent},
@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'compare', component: CompareComponent},
   { path: 'save/view/:id', component: SaveListComponent},
   { path: 'save/edit/:id', component: SaveFormComponent},
+  { path: 'game/new', component: CreateGameComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

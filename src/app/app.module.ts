@@ -43,38 +43,44 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
+  MatBottomSheetModule,
   MatButtonModule,
+  MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
   MatChipsModule,
   MatCommonModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatPseudoCheckboxModule,
   MatDatepickerModule,
-  MatProgressSpinnerModule,
-  MatProgressBarModule,
-  MatNativeDateModule,
-  MatGridListModule,
-  MatButtonToggleModule,
-  MatBottomSheetModule,
-  MatTooltipModule,
   MatDividerModule,
-  MatTreeModule,
-  MatListModule,
   MatExpansionModule,
-  MatSliderModule,
+  MatFormFieldModule,
+  MatGridListModule,
   MatIconModule,
+  MatInputModule,
   MatLineModule,
+  MatListModule,
   MatMenuModule,
+  MatNativeDateModule,
   MatOptionModule,
   MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatPseudoCheckboxModule,
   MatRadioModule,
-  MatRippleModule, MatSelectModule, MatSidenavModule, MatSortModule, MatTableModule, MatToolbarModule
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule
 } from '@angular/material';
 import { ForgotPasswordComponent } from './Components/auth/forgot-password/forgot-password.component';
+import { CreateGameComponent } from './Components/game/create-game/create-game.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +107,8 @@ import { ForgotPasswordComponent } from './Components/auth/forgot-password/forgo
     DropzoneDirective,
     FileSizePipe,
     FooterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,
