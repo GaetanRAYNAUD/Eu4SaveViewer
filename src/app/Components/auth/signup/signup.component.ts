@@ -3,10 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { Router } from "@angular/router";
 import { AuthService } from "../../../Services/auth.service";
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-
-export interface User {
-  email: string;
-}
+import { User } from "../../../Models/User.model";
+import { DatabaseService } from "../../../Services/database.service";
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +16,7 @@ export class SignupComponent implements OnInit {
 
   usersListed: boolean;
   usersCollection: AngularFirestoreCollection<User>;
-  users: Array<string>;
+  users: Array<User>;
   newUser: User;
   signUpForm: FormGroup;
   username: FormControl;
@@ -29,7 +27,7 @@ export class SignupComponent implements OnInit {
   passwordError: any;
   formSubmitAttempt: boolean;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private firestore: AngularFirestore) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private firestore: AngularFirestore, private databaseService: DatabaseService) { }
 
   ngOnInit() {
     this.usersListed = false;
@@ -67,15 +65,11 @@ export class SignupComponent implements OnInit {
   }
 
   initUsers() {
-    this.users = [];
-    this.usersCollection = this.firestore.collection<User>('users');
-    this.usersCollection.snapshotChanges().subscribe(actions => {
-      actions.map(action => {
-        this.users.push(action.payload.doc.id.toLowerCase());
-      });
-
-      this.usersListed = true;
-    });
+    this.databaseService.getUsers().then(
+      (users) => {
+        this.users = users;
+      }
+    );
   }
 
   handFirebaseAuthErrors(error) {
@@ -110,7 +104,7 @@ export class SignupComponent implements OnInit {
       this.usernameError.length = this.username.errors.minlength || (this.username.errors.maxlength || false);
     }
 
-    if (this.users.includes(this.username.value.toString().toLowerCase())) {
+    if (this.users.map(user => user.displayName.toLowerCase()).includes(this.username.value.toString().toLowerCase())) {
       this.usernameError.invalid = true;
       this.usernameError.alreadyUsed = true;
     }
@@ -129,13 +123,16 @@ export class SignupComponent implements OnInit {
     }
 
     if (this.signUpForm.valid && !this.usernameError.invalid) {
+
       const email = this.signUpForm.get('email').value;
       const password = this.signUpForm.get('password').value;
       this.authService.createNewUser(email, password).then(
         (uid) => {
-          this.newUser = {
-            email: this.email.value
+          this.newUser = <User>{
+            email: this.email.value,
+            id: uid
           };
+
           return this.authService.updateCurrentUser({
             displayName: this.username.value
           });
@@ -146,6 +143,7 @@ export class SignupComponent implements OnInit {
       ).then(
         () => {
           this.usersCollection = this.firestore.collection<User>('users');
+          console.log(this.newUser);
           this.usersCollection.doc(this.username.value).set(this.newUser);
           this.router.navigate(['']);
         }
