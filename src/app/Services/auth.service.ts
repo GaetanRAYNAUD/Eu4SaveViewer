@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from "firebase";
+import { User } from '../Models/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,13 @@ export class AuthService {
         }
       )
     });
+  }
+
+  getCurrentUser() {
+    return <User> {
+      id: firebase.auth().currentUser.uid,
+      email: firebase.auth().currentUser.email,
+      displayName: firebase.auth().currentUser.displayName
+    }
   }
 }

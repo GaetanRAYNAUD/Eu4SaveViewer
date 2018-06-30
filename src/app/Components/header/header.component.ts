@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
       (user) => {
         this.isAuth = !!user;
         if (this.isAuth) {
-          this.displayName = firebase.auth().currentUser.displayName;
+          this.displayName = this.authService.getCurrentUser().displayName;
         }
       }
     );
