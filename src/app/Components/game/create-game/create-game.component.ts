@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../../../Models/User.model";
 import { DatabaseService } from "../../../Services/database.service";
 import { Game } from "../../../Models/Game";
 import { WeekDay } from "@angular/common";
 import { AuthService } from "../../../Services/auth.service";
+import { UploadImageComponent } from "../../upload/upload-image/upload-image.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-create-game',
   templateUrl: './create-game.component.html',
   styleUrls: ['./create-game.component.scss']
 })
-export class CreateGameComponent implements OnInit {
+export class CreateGameComponent implements OnInit, AfterViewInit {
+
+  @ViewChild(UploadImageComponent)
+  uploadImageComponent: UploadImageComponent;
 
   game: Game;
   gameForm: FormGroup;
@@ -24,14 +29,14 @@ export class CreateGameComponent implements OnInit {
   end_hourError: any;
   title: FormControl;
   titleError: any;
-  image_url: FormControl;
-  image_urlError: any;
   admins: FormControl;
   adminsError: any;
   users: Array<User>;
   formSubmitAttempt: boolean;
+  formValid: boolean;
+  imageInputHeaderText: string;
 
-  constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.initUsers();
@@ -39,6 +44,12 @@ export class CreateGameComponent implements OnInit {
     this.initForm();
 
     this.formSubmitAttempt = false;
+    this.formValid = false;
+    this.imageInputHeaderText = 'Associer une image à la partie';
+  }
+
+  ngAfterViewInit() {
+
   }
 
   initFormControls() {
@@ -58,24 +69,18 @@ export class CreateGameComponent implements OnInit {
       '',
       [Validators.required, Validators.minLength(4), Validators.maxLength(256)]
     );
-    this.image_url = new FormControl(
-      '',
-      [Validators.minLength(4), Validators.maxLength(256)]
-    );
     this.admins = new FormControl();
 
     this.dayError = {};
     this.start_hourError = {};
     this.end_hourError = {};
     this.titleError = {};
-    this.image_urlError = {};
     this.adminsError = {};
   }
 
   initForm() {
     this.gameForm = this.formBuilder.group({
       tittle: this.title,
-      image_url: this.image_url,
       day: this.day,
       start_hour: this.start_hour,
       end_hour: this.end_hour,
@@ -157,17 +162,31 @@ export class CreateGameComponent implements OnInit {
       this.end_hourError.required = this.end_hour.errors.required || false;
     }
 
-    this.game = <Game> {
-      day: this.weekDay,
-      start_hour: this.start_hour.value,
-      end_hour: this.end_hour.value,
-      creator: this.authService.getCurrentUser().id,
-      admins: this.admins.value,
-      title: this.title.value,
-      image_url: this.image_url.value
-    };
+    if (!this.start_hourError.invalid && !this.dayError.invalid && !this.titleError.invalid) {
+      this.formValid = true;
 
-    this.databaseService.createNewGame(this.game);
+      this.game = <Game> {
+        day: this.weekDay,
+        start_hour: this.start_hour.value,
+        end_hour: this.end_hour.value,
+        creator: this.authService.getCurrentUser().id,
+        admins: this.admins.value,
+        title: this.title.value,
+        image_url: this.uploadImageComponent.image_url
+      };
+
+      this.uploadImageComponent.startUploadImage(true).then(
+        (url) => {
+          console.log(url);
+          this.game.image_url = url;
+          this.databaseService.createNewGame(this.game).then(
+            () => {
+              this.router.navigate(['']);
+            }
+          );
+        }
+      );
+    }
   }
 
 }

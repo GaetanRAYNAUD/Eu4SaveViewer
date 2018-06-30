@@ -81,6 +81,8 @@ import {
 } from '@angular/material';
 import { ForgotPasswordComponent } from './Components/auth/forgot-password/forgot-password.component';
 import { CreateGameComponent } from './Components/game/create-game/create-game.component';
+import { UploadImageComponent } from './Components/upload/upload-image/upload-image.component';
+import { UploadSaveComponent } from './Components/upload/upload-save/upload-save.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,9 @@ import { CreateGameComponent } from './Components/game/create-game/create-game.c
     FileSizePipe,
     FooterComponent,
     ForgotPasswordComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    UploadImageComponent,
+    UploadSaveComponent
   ],
   imports: [
     BrowserModule,

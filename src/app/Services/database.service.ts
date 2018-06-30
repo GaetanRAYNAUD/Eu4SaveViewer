@@ -28,8 +28,7 @@ export class DatabaseService {
   }
 
   createNewGame(game) {
-    console.log(game);
     let gameCollection = this.firestore.collection<Game>('games');
-    gameCollection.doc(game.title).set(<Game>game);
+    return gameCollection.doc(game.title).set(<Game>game);
   }
 }

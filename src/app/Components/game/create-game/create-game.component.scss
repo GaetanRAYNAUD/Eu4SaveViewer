@@ -22,3 +22,22 @@ mat-form-field {
   }
 }
 
+.upload-image {
+  width: 50%;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  .mat-card {
+    width: 50%;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+mat-progress-bar {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}

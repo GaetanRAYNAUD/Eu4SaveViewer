@@ -1,0 +1,30 @@
+<mat-card class="upload-image pb-4">
+
+  <mat-card-header class="mt-4 text-center">{{ headerText }}</mat-card-header>
+
+  <mat-card-content>
+
+    <mat-form-field class="mt-4">
+
+      <input class="mb-2" matInput type="url" placeholder="Utiliser une lien externe" [(ngModel)]="externalInput" (input)="visualizeExternalInput()">
+
+    </mat-form-field>
+
+    <div class="my-2 image-preview">
+      <img *ngIf="externalInputValid" [src]="externalInput" alt="Url invalide !" />
+    </div>
+
+    <div>
+
+      <button mat-raised-button color="primary" type="button" class="pt-2 pb-2 font-weight-bold" (click)="hiddenImageInput.click()">Uploader une image</button>
+      <input hidden type="file" #hiddenImageInput (change)="uploadImage($event)">
+
+      <div class="my-2 image-preview">
+        <img *ngIf="uploadingFile" [src]="previewUploadFile" alt="Url invalide !" />
+      </div>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>
