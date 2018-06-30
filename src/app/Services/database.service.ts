@@ -25,4 +25,8 @@ export class DatabaseService {
       });
     });
   }
+
+  createNewGame(game) {
+
+  }
 }

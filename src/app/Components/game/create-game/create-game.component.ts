@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../../../Models/User.model";
-import { AngularFirestore, AngularFirestoreCollection } from "angularfire2/firestore";
+import { AngularFirestoreCollection } from "angularfire2/firestore";
 import { DatabaseService } from "../../../Services/database.service";
+import { Game } from "../../../Models/Game";
 
 @Component({
   selector: 'app-create-game',
@@ -11,6 +12,7 @@ import { DatabaseService } from "../../../Services/database.service";
 })
 export class CreateGameComponent implements OnInit {
 
+  game: Game;
   gameForm: FormGroup;
   day: FormControl;
   dayError: any;
@@ -81,7 +83,6 @@ export class CreateGameComponent implements OnInit {
   initUsers() {
     this.databaseService.getUsers().then(
       (users) => {
-        console.log(users);
         this.users = users;
       }
     );
@@ -116,6 +117,8 @@ export class CreateGameComponent implements OnInit {
     if (this.end_hourError.invalid) {
       this.end_hourError.required = this.end_hour.errors.required || false;
     }
+
+
   }
 
 }

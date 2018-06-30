@@ -1,7 +1,6 @@
 // Angular dependencies
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from "@angular/router";
-
 // External dependencies
 import { Observable } from "rxjs/internal/Observable";
 import * as firebase from "firebase";

@@ -1,8 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import * as firebase from "firebase";
 import { environment } from "../environments/environment";
 import { Router } from "@angular/router";
-import { SigninComponent } from "./Components/auth/signin/signin.component";
 
 @Component({
   selector: 'app-root',
