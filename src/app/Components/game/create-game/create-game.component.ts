@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../../../Models/User.model";
-import { AngularFirestoreCollection } from "angularfire2/firestore";
 import { DatabaseService } from "../../../Services/database.service";
 import { Game } from "../../../Models/Game";
+import { WeekDay } from "@angular/common";
+import { AuthService } from "../../../Services/auth.service";
 
 @Component({
   selector: 'app-create-game',
@@ -15,6 +16,7 @@ export class CreateGameComponent implements OnInit {
   game: Game;
   gameForm: FormGroup;
   day: FormControl;
+  weekDay: WeekDay;
   dayError: any;
   start_hour: FormControl;
   start_hourError: any;
@@ -26,16 +28,17 @@ export class CreateGameComponent implements OnInit {
   image_urlError: any;
   admins: FormControl;
   adminsError: any;
-  usersCollection: AngularFirestoreCollection<User>;
   users: Array<User>;
   formSubmitAttempt: boolean;
 
-  constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService) { }
+  constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService, private authService: AuthService) { }
 
   ngOnInit() {
     this.initUsers();
     this.initFormControls();
     this.initForm();
+
+    this.formSubmitAttempt = false;
   }
 
   initFormControls() {
@@ -83,13 +86,47 @@ export class CreateGameComponent implements OnInit {
   initUsers() {
     this.databaseService.getUsers().then(
       (users) => {
-        this.users = users;
+        this.users = users.filter(user => user.id != this.authService.getCurrentUser().id);
       }
     );
   }
 
+  getWeekDay() {
+    switch (this.day.value) {
+      case 0:
+        this.weekDay = WeekDay.Sunday;
+        break;
+
+      case 1:
+        this.weekDay = WeekDay.Monday;
+        break;
+
+      case 2:
+        this.weekDay = WeekDay.Tuesday;
+        break;
+
+      case 3:
+        this.weekDay = WeekDay.Wednesday;
+        break;
+
+      case 4:
+        this.weekDay = WeekDay.Thursday;
+        break;
+
+      case 5:
+        this.weekDay = WeekDay.Friday;
+        break;
+
+      case 6:
+        this.weekDay = WeekDay.Saturday;
+        break;
+
+      default:
+        this.weekDay = WeekDay.Sunday;
+    }
+  }
+
   onSubmit() {
-    console.log(this.admins.value);
     this.formSubmitAttempt = true;
     this.titleError = {};
     this.dayError = {};
@@ -106,6 +143,8 @@ export class CreateGameComponent implements OnInit {
     this.dayError.invalid = this.day.invalid;
     if (this.dayError.invalid) {
       this.dayError.required = this.day.errors.required || false;
+    } else {
+      this.getWeekDay();
     }
 
     this.start_hourError.invalid = this.start_hour.invalid;
@@ -118,7 +157,17 @@ export class CreateGameComponent implements OnInit {
       this.end_hourError.required = this.end_hour.errors.required || false;
     }
 
+    this.game = <Game> {
+      day: this.weekDay,
+      start_hour: this.start_hour.value,
+      end_hour: this.end_hour.value,
+      creator: this.authService.getCurrentUser().id,
+      admins: this.admins.value,
+      title: this.title.value,
+      image_url: this.image_url.value
+    };
 
+    this.databaseService.createNewGame(this.game);
   }
 
 }

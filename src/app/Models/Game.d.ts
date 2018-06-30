@@ -1,13 +1,12 @@
 import { GreatPower, Session } from "./Session";
 import { Time, WeekDay } from "@angular/common";
-import { User } from "./User.model";
 
 export interface Game {
   day: WeekDay; //Form
   start_hour: Time; //Form
   end_hour: Time; //Form
-  creator: User; //Form
-  admins: User[]; //Form
+  creator: string; //Form
+  admins: string[]; //Form
   title: string; //Form
   image_url: string; //Form
   sessions: Session[];
