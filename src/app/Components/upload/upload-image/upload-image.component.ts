@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChange } from '@angular/core';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
+import { MatSnackBar } from '@angular/material';
 import { map } from "rxjs/operators";
 
 @Component({
@@ -23,7 +24,7 @@ export class UploadImageComponent implements OnInit, OnChanges {
   task: AngularFireUploadTask;
   image_url: string;
 
-  constructor(private firestore: AngularFireStorage) { }
+  constructor(private firestore: AngularFireStorage, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.externalInput = '';
@@ -44,9 +45,11 @@ export class UploadImageComponent implements OnInit, OnChanges {
         )
       );
 
-      return new Promise ((resolve, reject) => {
+      return new Promise ((resolve) => {
         this.task.task.then(
           (snap) => {
+            this.openSnackBar();
+            
             snap.ref.getDownloadURL().then(
               (url) => {
                 resolve(<string> url);
@@ -82,6 +85,9 @@ export class UploadImageComponent implements OnInit, OnChanges {
     }
   }
 
-
-
+  openSnackBar() {
+    this.snackBar.open('Image uploadée !', null, {
+      duration: 2000,
+    });
+  }
 }
