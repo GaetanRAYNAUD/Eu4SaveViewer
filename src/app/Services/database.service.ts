@@ -56,4 +56,17 @@ export class DatabaseService {
       });
     });
   }
+
+  getGame(id: string): Promise<Game> {
+    let gamesCollection = this.firestore.collection<Game>('games');
+    return new Promise<Game>(resolve => {
+      gamesCollection.snapshotChanges().subscribe(actions => {
+        actions.map(action => {
+          if (action.payload.doc.id === id) {
+            resolve(<Game>action.payload.doc.data());
+          }
+        });
+      });
+    });
+  }
 }
