@@ -3,6 +3,7 @@ import { Time, WeekDay } from "@angular/common";
 
 export interface Game {
   id: string; //Computed
+  status: GameStatus; //Computed
   day: WeekDay; //Form
   start_hour: Time; //Form
   end_hour: Time; //Form
@@ -17,4 +18,10 @@ export interface Game {
   date: Date; //Computed
   great_powers: GreatPower[]; //Computed
   map_url: string; //Computed
+}
+
+export enum GameStatus {
+  PENDING = "PENDING",
+  ON_GOING = "ON_GOING",
+  FINISHED = "FINISHED"
 }
