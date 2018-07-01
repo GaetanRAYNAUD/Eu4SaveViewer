@@ -3,6 +3,10 @@
     <mat-icon>home</mat-icon>
   </button>
 
+  <button mat-button matTooltip="Créer une partie" routerLink="game/new" routerLinkActive="active" *ngIf="isAuth">
+    <mat-icon>add_box</mat-icon>
+  </button>
+
   <span class="spacer"></span>
 
   <button mat-button matTooltip="Créer un compte" routerLink="auth/signup" *ngIf="!isAuth">
