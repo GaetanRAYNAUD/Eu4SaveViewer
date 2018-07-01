@@ -2,6 +2,7 @@ import { GreatPower, Session } from "./Session";
 import { Time, WeekDay } from "@angular/common";
 
 export interface Game {
+  id: string; //Computed
   day: WeekDay; //Form
   start_hour: Time; //Form
   end_hour: Time; //Form

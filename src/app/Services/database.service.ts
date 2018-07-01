@@ -27,9 +27,19 @@ export class DatabaseService {
     });
   }
 
-  createNewGame(game) {
+  createNewGame(game: Game): Promise<null> {
     let gameCollection = this.firestore.collection<Game>('games');
-    return gameCollection.doc(game.title).set(<Game>game);
+    return new Promise(resolve => {
+      gameCollection.add(game).then(
+        (ref) => {
+          game.id = ref.id;
+          gameCollection.doc(ref.id).update(game).then(
+            () => {
+              resolve();
+            }
+          );
+        });
+    });
   }
 
   getGames() {
