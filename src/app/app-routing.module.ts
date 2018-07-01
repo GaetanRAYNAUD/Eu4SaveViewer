@@ -13,6 +13,7 @@ import { CompareComponent } from "./Components/compare/compare.component";
 import { HomeComponent } from "./Components/home/home.component";
 import { ForgotPasswordComponent } from "./Components/auth/forgot-password/forgot-password.component";
 import { CreateGameComponent } from "./Components/game/create-game/create-game.component";
+import { AuthGuardService } from "./Services/auth-guard.service";
 
 // External dependencies
 
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'compare', component: CompareComponent},
   { path: 'save/view/:id', component: SaveListComponent},
   { path: 'save/edit/:id', component: SaveFormComponent},
-  { path: 'game/new', component: CreateGameComponent},
+  { path: 'game/new', canActivate: [AuthGuardService], component: CreateGameComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
