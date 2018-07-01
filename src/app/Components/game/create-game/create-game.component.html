@@ -18,6 +18,7 @@
             <mat-error *ngIf="titleError.required">Veuilliez indiquer un nom pour la partie !</mat-error>
             <mat-error *ngIf="titleError.tooShort">Le nom est doit contenir au moins 4 caractères !</mat-error>
             <mat-error *ngIf="titleError.tooLong">Le nom est trop long !</mat-error>
+            <mat-error *ngIf="titleError.alreadyUsed">Ce nom est déjà utilisé pour une autre partie !.</mat-error>
           </mat-hint>
 
         </mat-form-field>

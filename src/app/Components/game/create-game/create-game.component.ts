@@ -32,6 +32,7 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
   admins: FormControl;
   adminsError: any;
   users: Array<User>;
+  games: Array<Game>;
   formSubmitAttempt: boolean;
   formValid: boolean;
   imageInputHeaderText: string;
@@ -40,6 +41,7 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initUsers();
+    this.initGames();
     this.initFormControls();
     this.initForm();
 
@@ -96,6 +98,14 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
     );
   }
 
+  initGames() {
+    this.databaseService.getGames().then(
+      (games) => {
+        this.games = games;
+      }
+    );
+  }
+
   getWeekDay() {
     switch (this.day.value) {
       case 0:
@@ -143,6 +153,12 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
       this.titleError.required = this.title.errors.required || false;
       this.titleError.tooShort = this.title.errors.minlength || false;
       this.titleError.tooLong = this.title.errors.maxlength || false;
+    }
+
+    if (this.games.map(game => game.title.toLowerCase()).includes(this.title.value.toString().toLowerCase())) {
+      this.titleError.invalid = true;
+      this.titleError.alreadyUsed = true;
+      this.gameForm.controls['title'].markAsTouched();
     }
 
     this.dayError.invalid = this.day.invalid;
