@@ -83,6 +83,7 @@ import { ForgotPasswordComponent } from './Components/auth/forgot-password/forgo
 import { CreateGameComponent } from './Components/game/create-game/create-game.component';
 import { UploadImageComponent } from './Components/upload/upload-image/upload-image.component';
 import { UploadSaveComponent } from './Components/upload/upload-save/upload-save.component';
+import { ViewGameComponent } from './Components/game/view-game/view-game.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { UploadSaveComponent } from './Components/upload/upload-save/upload-save
     ForgotPasswordComponent,
     CreateGameComponent,
     UploadImageComponent,
-    UploadSaveComponent
+    UploadSaveComponent,
+    ViewGameComponent
   ],
   imports: [
     BrowserModule,
