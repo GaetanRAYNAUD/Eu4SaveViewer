@@ -13,7 +13,6 @@ export class ViewGameComponent implements OnInit {
   id: string;
   game: Game;
 
-
   constructor(private router: Router, private route: ActivatedRoute,  private databaseService: DatabaseService) { }
 
   ngOnInit() {
@@ -28,6 +27,4 @@ export class ViewGameComponent implements OnInit {
       }
     );
   }
-
-
 }

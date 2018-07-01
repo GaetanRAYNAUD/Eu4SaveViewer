@@ -1,7 +1,7 @@
 import { GreatPower, Session } from "./Session";
 import { Time, WeekDay } from "@angular/common";
 
-export interface Game {
+export declare interface Game {
   id: string; //Computed
   status: GameStatus; //Computed
   day: WeekDay; //Form
@@ -20,8 +20,8 @@ export interface Game {
   map_url: string; //Computed
 }
 
-export enum GameStatus {
-  PENDING = "PENDING",
-  ON_GOING = "ON_GOING",
-  FINISHED = "FINISHED"
+export declare const enum GameStatus {
+  PENDING = 'PENDING',
+  ON_GOING = 'ON_GOING',
+  FINISHED = 'FINISHED'
 }
