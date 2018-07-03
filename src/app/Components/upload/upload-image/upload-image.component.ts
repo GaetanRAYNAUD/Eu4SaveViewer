@@ -11,7 +11,6 @@ import { map } from "rxjs/operators";
 export class UploadImageComponent implements OnInit, OnChanges {
 
   @Input() title: string;
-  @Input() formValid: boolean;
   @Input() headerText: string;
 
   externalInput: string;
@@ -35,28 +34,39 @@ export class UploadImageComponent implements OnInit, OnChanges {
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
   }
 
-  startUploadImage(start): Promise<string> {
-    if (start == true || (this.formValid && this.uploadFile)) {
-      this.task = this.ref.child('image').put(this.uploadFile);
+  startUploadImage(): Promise<string> {
+    if (this.externalInput.length > 0 || this.uploadFile) {
+      if (this.uploadFile) {
+        this.ref = this.firestore.ref(this.title);
+        this.task = this.ref.child('image').put(this.uploadFile);
 
-      this.uploadProgress = this.task.snapshotChanges().pipe(
-        map(s =>
-          (s.bytesTransferred / s.totalBytes) * 100
-        )
-      );
+        this.uploadProgress = this.task.snapshotChanges().pipe(
+          map(s =>
+            (s.bytesTransferred / s.totalBytes) * 100
+          )
+        );
 
-      return new Promise ((resolve) => {
-        this.task.task.then(
-          (snap) => {
-            this.openSnackBar();
-            
-            snap.ref.getDownloadURL().then(
-              (url) => {
-                resolve(<string> url);
-              }
-            )
-          }
-        )
+        return new Promise((resolve) => {
+          this.task.task.then(
+            (snap) => {
+              this.openSnackBar();
+
+              snap.ref.getDownloadURL().then(
+                (url) => {
+                  resolve(<string> url);
+                }
+              )
+            }
+          )
+        });
+      } else {
+        return new Promise(resolve => {
+          resolve(this.externalInput);
+        });
+      }
+    } else {
+      return new Promise(resolve => {
+        resolve(null);
       });
     }
   }
@@ -72,8 +82,6 @@ export class UploadImageComponent implements OnInit, OnChanges {
 
       reader.readAsDataURL(event.target.files[0]);
       this.uploadFile = event.target.files[0];
-
-      this.ref = this.firestore.ref(this.title);
     }
   }
 

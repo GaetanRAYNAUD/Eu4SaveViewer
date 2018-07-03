@@ -27,7 +27,7 @@
 
       <mat-grid-tile-header>
 
-        <app-upload-image [title]="title.value" [formValid]="formValid" [headerText]="imageInputHeaderText"></app-upload-image>
+        <app-upload-image [title]="title.value" [headerText]="imageInputHeaderText"></app-upload-image>
 
       </mat-grid-tile-header>
 
@@ -343,7 +343,7 @@
 
       </mat-grid-tile-header>
 
-      <mat-progress-bar class="my-2" *ngIf="formValid" [value]="(uploadImageComponent.uploadProgress | async)"></mat-progress-bar>
+      <mat-progress-bar class="my-2" *ngIf="formSubmitAttempt && uploadImageComponent.uploadProgress" [value]="(uploadImageComponent.uploadProgress | async)"></mat-progress-bar>
 
       <mat-card-actions class="mt-4">
 

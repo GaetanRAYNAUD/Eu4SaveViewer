@@ -34,7 +34,6 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
   users: Array<User>;
   games: Array<Game>;
   formSubmitAttempt: boolean;
-  formValid: boolean;
   imageInputHeaderText: string;
 
   constructor(private formBuilder: FormBuilder, private databaseService: DatabaseService, private authService: AuthService, private router: Router) { }
@@ -46,7 +45,6 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
     this.initForm();
 
     this.formSubmitAttempt = false;
-    this.formValid = false;
     this.imageInputHeaderText = 'Associer une image à la partie';
   }
 
@@ -179,8 +177,6 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
     }
 
     if (!this.start_hourError.invalid && !this.dayError.invalid && !this.titleError.invalid) {
-      this.formValid = true;
-
       this.game = <Game> {
         day: this.weekDay,
         start_hour: this.start_hour.value,
@@ -191,9 +187,8 @@ export class CreateGameComponent implements OnInit, AfterViewInit {
         image_url: this.uploadImageComponent.image_url
       };
 
-      this.uploadImageComponent.startUploadImage(true).then(
+      this.uploadImageComponent.startUploadImage().then(
         (url) => {
-          console.log(url);
           this.game.image_url = url;
           this.databaseService.createNewGame(this.game).then(
             () => {
