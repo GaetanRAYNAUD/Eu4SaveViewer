@@ -1,4 +1,4 @@
-import { GreatPower, Session } from "./Session";
+import { Session } from "./Session";
 import { Time, WeekDay } from "@angular/common";
 
 export declare interface Game {
@@ -11,13 +11,7 @@ export declare interface Game {
   admins: string[]; //Form
   title: string; //Form
   image_url: string; //Form
-  sessions: Session[];
-  nb_player: number; //Computed
-  dev_total: number; //Computed
-  losses_total: number; //Computed
-  date: Date; //Computed
-  great_powers: GreatPower[]; //Computed
-  map_url: string; //Computed
+  sessions: Session[]; //Session Form
 }
 
 export declare const enum GameStatus {
